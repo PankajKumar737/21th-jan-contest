@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgb(238, 238, 238);
+        }
+        div{
+            background-color: white;
+            width: 40%;
+            margin: auto;
+            padding: 0% 8% 8% 8%;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border-radius: 10px;
+        }
+        input,button{
+            width: 100%;
+            font-size: 20px;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            font-size: small;
+            padding: 10px 10px;
+        }
+        div>h2{
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding: 50px 20px 20px 20px;;
+            font-size:x-large;
+            line-height: 10px;
+            font-weight: 700;
+        }
+        div>p{
+            text-align: center;
+            margin-top: 40px;
+        }
+        button{
+            border: transparent;
+            color: gray;
+            margin-top: 40px;
+            font-size: small;
+            padding: 10px 10px;
+        }
+        div>form>p{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Sign Up</h2>
+       <form>
+        <p>Full name</p>
+        <input id="name" type="text" placeholder="Enter your full name">
+        <p>Email</p>
+        <input id="email" type="email" placeholder="Enter email">
+        <p>Password</p>
+        <input id="password" type="password" placeholder="Enter password">
+        <p> Confirm Password</p>
+        <input id="password" type="password" placeholder="Enter password">
+        <button id="signup">SIGN UP</button>
+       </form>
+       <p>Already have an account?<a href="signin.html">Sign In</a></p>
+    </div>
+</body>
+<script>
+    let form=document.querySelector("form");
+    let userData=JSON.parse(localStorage.getItem("userData")) || [];
+
+
+    form.addEventListener("submit",function(event){
+
+        event.preventDefault();
+        let data={
+            name:form.name.value,
+            email:form.email.value,
+            password:form.password.value,
+        }
+
+        if(checkEmail(data.email)===true)
+        {
+            userData.push(data);
+            localStorage.setItem("userData",JSON.stringify(userData));
+        }
+        else
+        {
+            alert("Account Already Exists");
+        }
+    
+        })
+
+        function checkEmail(email){
+        let filtered=userData.filter(function(element){
+            return email === element.email;
+        })
+
+        if(filtered.length > 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        
+        }
+
+</script>
+</html>
